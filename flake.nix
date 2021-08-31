@@ -106,7 +106,8 @@
         # this package is not a program, it uses phony make targets
         # as wrappers around shadysim and converter
         imsi-pseudo = with final;
-          let oldJdk = final.adoptopenjdk-openj9-bin-8;
+          let
+            oldJdk = final.adoptopenjdk-openj9-bin-8;
           in
           stdenv.mkDerivation {
             name = "imsi-pseudo";
@@ -116,8 +117,13 @@
             nativeBuildInputs = [ oldJdk ];
             prePatch = ''
               substituteInPlace Makefile \
-                  --replace '../../sim-tools' ${shadysim-bin}
+                  --replace '../../sim-tools' ${simtools-src}
+              substituteInPlace applet-project.mk \
+                  --replace '$(SIMTOOLS_DIR)/bin/shadysim' ${shadysim-bin}/bin/shadysim
             '';
+
+            dontBuild = true;
+            dontInstall = true;
           };
 
       };
@@ -130,6 +136,55 @@
 
       defaultPackage =
         forAllSystems (system: self.packages.${system}.shadysim-bin);
+
+      apps = forAllSystems
+        (system:
+          let
+            pkgs = nixpkgsFor."${system}";
+
+            oldJdk = pkgs.adoptopenjdk-openj9-bin-8;
+
+            phony-targets = [
+              "flash"
+              "list"
+              "remove"
+              "reflash"
+            ];
+
+            mkPhonyDerivation = with pkgs; (target: stdenv.mkDerivation {
+              name = "imsi-pseudo";
+              version = "0.1.0";
+              src = "${imsi-pseudo-src}/sim-applet";
+
+              buildInputs = [ oldJdk ];
+              nativeBuildInputs = [ gnumake ];
+              prePatch = ''
+                substituteInPlace Makefile \
+                    --replace '../../sim-tools' ${simtools-src}
+                substituteInPlace applet-project.mk \
+                    --replace '$(SIMTOOLS_DIR)/bin/shadysim' ${shadysim-bin}/bin/shadysim
+              '';
+
+              buildPhase = ''
+                make ${target}
+              '';
+              dontInstall = true;
+            });
+          in
+          builtins.listToAttrs
+            (builtins.map
+              (target:
+                {
+                  name = "${target}";
+                  value = {
+                    type = "app";
+                    program = "${mkPhonyDerivation target}";
+                  };
+                })
+              phony-targets
+            )
+        );
+
 
     };
 
