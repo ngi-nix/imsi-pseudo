@@ -103,34 +103,11 @@
               chmod +x $out/bin/converter
             '';
 
-        # this package is not a program, it uses phony make targets
-        # as wrappers around shadysim and converter
-        imsi-pseudo = with final;
-          let
-            oldJdk = final.adoptopenjdk-openj9-bin-8;
-          in
-          stdenv.mkDerivation {
-            name = "imsi-pseudo";
-            version = "0.1.0";
-            src = "${imsi-pseudo-src}/sim-applet";
-
-            nativeBuildInputs = [ oldJdk ];
-            prePatch = ''
-              substituteInPlace Makefile \
-                  --replace '../../sim-tools' ${simtools-src}
-              substituteInPlace applet-project.mk \
-                  --replace '$(SIMTOOLS_DIR)/bin/shadysim' ${shadysim-bin}/bin/shadysim
-            '';
-
-            dontBuild = true;
-            dontInstall = true;
-          };
-
       };
 
 
       packages = forAllSystems (system: {
-        inherit (nixpkgsFor.${system}) shadysim-bin converter-bin imsi-pseudo;
+        inherit (nixpkgsFor.${system}) shadysim-bin converter-bin;
       });
 
 
