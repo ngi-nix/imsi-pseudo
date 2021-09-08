@@ -114,6 +114,7 @@
       defaultPackage =
         forAllSystems (system: self.packages.${system}.shadysim-bin);
 
+      # exposes the makefile's phony targets to all systems
       apps = forAllSystems
         (system:
           let
