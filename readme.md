@@ -11,8 +11,8 @@ subscriber on the radio interface
 
 - `shadysim`: a Python2 program to work with Toorcamp SIM
   cards
-- converter: a Java binary (not entirely sure why this
-  exists, but it is a dependency of IMSI Pseudo
+- converter: a Java binary to convert between CAP, JCA and
+  EXP formats
 - a `makefile` with phony targets: this seems to be the
   heart of the project. It makes use of above binaries to
   perform "pseudonymization" and IMSI concealing.
