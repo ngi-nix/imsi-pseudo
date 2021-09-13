@@ -1,0 +1,78 @@
+{
+  "nodes": {
+    "imsi-pseudo-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1603918409,
+        "narHash": "sha256-/Rz1wEmPh1L1KXyq13pQU/CE+bWY2nF5cmTHVpWxXoc=",
+        "ref": "master",
+        "rev": "98f5e49a09cda1feed3232ae45ddd04b22f320bb",
+        "revCount": 110,
+        "type": "git",
+        "url": "https://git.osmocom.org/imsi-pseudo"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.osmocom.org/imsi-pseudo"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1629225863,
+        "narHash": "sha256-ewRb0HOyhtP0Z1Aei9MwsGmrfRusJ7tkIRkBjazS8Rc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "97c5d0cbe76901da0135b05cdbdfc5b068a7942c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-21.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pycrypto-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1403507544,
+        "narHash": "sha256-BWaOqbZgWxqoJBbSwVM/nbP9+6sks/km8drxfYCXLew=",
+        "owner": "pycrypto",
+        "repo": "pycrypto",
+        "rev": "7acba5f3a6ff10f1424c309d0d34d2b713233019",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pycrypto",
+        "repo": "pycrypto",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "imsi-pseudo-src": "imsi-pseudo-src",
+        "nixpkgs": "nixpkgs",
+        "pycrypto-src": "pycrypto-src",
+        "simtools-src": "simtools-src"
+      }
+    },
+    "simtools-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1489786792,
+        "narHash": "sha256-WbkwrJeA+FzIa6iH/mg/XPOBPrCN9YaLDuOhcF8iVsE=",
+        "ref": "master",
+        "rev": "caa2a1752e959c2de650aa75eea18b7dc004d4a6",
+        "revCount": 18,
+        "type": "git",
+        "url": "https://git.osmocom.org/sim/sim-tools"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.osmocom.org/sim/sim-tools"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
