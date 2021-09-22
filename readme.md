@@ -23,14 +23,14 @@ This flake provides the following:
 
 **Packages**
 
- - `shadysim-bin`
- - `converter-bin`
+ - `shadysim`
+ - `converter`
 
 These can be built as standalone packages via:
 
 ```
-nix build github:ngi-nix/imsi-pseudo#shadysim-bin
-nix build github:ngi-nix/imsi-pseudo#converter-bin
+nix build github:ngi-nix/imsi-pseudo#shadysim
+nix build github:ngi-nix/imsi-pseudo#converter
 ```
 
 However, ideally you want to make use of the following flake
@@ -39,7 +39,7 @@ apps.
 **Apps**
 
  - `flash`: flash given KIC1 and KID1 into the SIM
- - `list`: an alias for `shadysim-bin --list-applets`
+ - `list`: an alias for `shadysim --list-applets`
  - `reflash`: an alias for `remove` followed `flash`
  - `remove`: safely remove the sim-applet
 
